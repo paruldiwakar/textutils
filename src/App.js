@@ -1,25 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+
+function App(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <a className="navbar-brand" href="/">Textutils</a>
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+
+  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item active">
+        <a className="nav-link" href="/">Home </a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/">About</a>
+      </li>
+ 
+    </ul>
+  </div>
+  <div>
+  <form className="form-inline my-2 my-lg-0 mr-auto">
+  <div className="input-group">
+    <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
+    <div className="input-group-append">
+      <button className="btn btn-outline-success" type="submit">Search</button>
     </div>
+  </div>
+</form>
+  </div>
+</nav>
+
+
+    </>
   );
 }
-
 export default App;
