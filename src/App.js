@@ -1,39 +1,61 @@
 import './App.css';
+import Alert from './components/Alert';
+import About from './components/About';
+import Navbar from './components/Navbar';
+import TextForm from './components/TextForm';
+import React,{useState} from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 
 function App(){
+
+  const [mode, setMode] = useState('light');
+  const [alert, setAlert] = useState(null);
+
+  const handleAlert = (message, type) =>{
+    setAlert({
+      msg:message,
+      type:type
+    })
+    setTimeout(() =>{
+      setAlert(null);
+    }, 1500);
+  };
+
+  const toggleMode = () => {
+    if (mode === 'light'){
+      setMode('dark');
+      document.body.style.backgroundColor = '#3b3b3b';
+      handleAlert(" Dark mode has been enabled", "success");
+      document.title = "Textutils-Dark Mode";
+    }
+    else{
+      setMode('light');
+      document.body.style.backgroundColor = 'white';
+      handleAlert(" Light mode has been enabled", "success");
+      document.title = "Textutils-Light Mode";
+    }
+  };
+
   return (
     <>
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <a className="navbar-brand" href="/">Textutils</a>
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button>
-
-  <div className="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul className="navbar-nav ml-auto">
-      <li className="nav-item active">
-        <a className="nav-link" href="/">Home </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/">About</a>
-      </li>
- 
-    </ul>
-  </div>
-  <div>
-  <form className="form-inline my-2 my-lg-0 mr-auto">
-  <div className="input-group">
-    <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
-    <div className="input-group-append">
-      <button className="btn btn-outline-success" type="submit">Search</button>
-    </div>
-  </div>
-</form>
-  </div>
-</nav>
-
-
+      <Router>
+        <Navbar title="Textutils" aboutText="About Textutils" mode={mode} toggleMode={toggleMode} />
+        <Alert alert={alert} />
+        <div className="container">
+          <Routes>
+          {/* exact keyword is used so that exact matching is done otherwise 
+          react will do partial matching
+          /users --> component 1
+          /users/names --> component2
+          Then on typing users/names/ --> component 1 will be rendered is
+          'exact' is not mentioned */}
+            <Route exact path='/' element={<TextForm heading="Enter the text to analyse" mode={mode} handleAlert={handleAlert} />} />
+            <Route exact path='/about' element={<About />} />
+          </Routes>
+        </div>
+      </Router>
+    
     </>
   );
 }
